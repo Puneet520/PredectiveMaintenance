@@ -126,3 +126,5 @@ Contribute:
 We welcome contributions! Please open an issue first to discuss what you'd like to change. Fork this repo, create a branch, and submit a pull request.
 
 
+![Screenshot 2025-04-13 142943](https://github.com/user-attachments/assets/9a1b4e75-7b1f-4a72-9c13-0ddbb2e93a2c)
+![WhatsApp Image 2025-04-13 at 14 30 36_1a4cdc75](https://github.com/user-attachments/assets/e0e4d4af-88d4-4a75-8694-e2c3f33ce9da)
