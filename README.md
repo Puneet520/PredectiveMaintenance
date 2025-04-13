@@ -122,9 +122,10 @@ Contribute:
 ![WhatsApp Image 2025-04-13 at 14 18 20_76499d44](https://github.com/user-attachments/assets/ad08771f-bf0a-442f-a13c-d8216f52fdf2)
 ![WhatsApp Image 2025-04-13 at 14 18 20_5152583f](https://github.com/user-attachments/assets/705bd940-dbb2-4f19-9aef-db7c701df31d)
 ![WhatsApp Image 2025-04-13 at 14 18 22_3b3e9339](https://github.com/user-attachments/assets/be6ed9b1-df95-41fb-8024-15a9e0501a23)
-🤝 Contribution Guidelines
-We welcome contributions! Please open an issue first to discuss what you'd like to change. Fork this repo, create a branch, and submit a pull request.
+
 
 
 ![Screenshot 2025-04-13 142943](https://github.com/user-attachments/assets/9a1b4e75-7b1f-4a72-9c13-0ddbb2e93a2c)
 ![WhatsApp Image 2025-04-13 at 14 30 36_1a4cdc75](https://github.com/user-attachments/assets/e0e4d4af-88d4-4a75-8694-e2c3f33ce9da)
+🤝 Contribution Guidelines
+We welcome contributions! Please open an issue first to discuss what you'd like to change. Fork this repo, create a branch, and submit a pull request.
