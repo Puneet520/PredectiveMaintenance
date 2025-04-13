@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Modern CSS with particle effects */
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Amazon Ember', Arial, sans-serif;
+            box-sizing: border-box;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Aqua Particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: rgba(0, 255, 255, 0.5);
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(0, 255, 255, 0.5);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        body {
+            background: linear-gradient(-45deg, #121212, #1a1a2e, #121212);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .main-container {
+            height: 550px;
+            width: 900px;
+            background-color: rgba(30, 30, 30, 0.85);
+            border-radius: 15px;
+            display: flex;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .main-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .left-side-main-div {
+            height: 100%;
+            width: 45%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(37, 37, 37, 0.8));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .left-side-main-div:hover {
+            background: linear-gradient(135deg,  rgba(37, 37, 37, 0.8), rgba(0, 0, 0, 0.8));
+        }
+
+        .left-side-main-div::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+
+        #left-side-1heading {
+            color: #FFFFFF;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            animation: fadeIn 0.8s ease-out;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .left-side-1span, .left-side-2span {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin: 5px 0;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .left-side-1button {
+            height: 45px;
+            width: 140px;
+            border-radius: 25px;
+            background-color: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            color: #FFFFFF;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: 1;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .left-side-1button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .left-side-1button:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .left-side-1button:hover {
+            background-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .left-side-1button:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .right-side-main-div {
+            height: 100%;
+            width: 55%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(42, 42, 42, 0.7);
+            transition: all 0.5s ease;
+        }
+
+        .right-side-main-div:hover {
+            background: rgba(42, 42, 42, 0.8);
+        }
+
+        #right-side-1heading {
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            animation: fadeIn 0.6s ease-out;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .right-side-all-2div {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .social-icon {
+            height: 45px;
+            width: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(58, 58, 58, 0.7);
+            color: #aaa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background-color: rgba(74, 74, 74, 0.9);
+        }
+
+        .social-icon.google:hover { color: #DB4437; }
+        .social-icon.facebook:hover { color: #4267B2; }
+        .social-icon.github:hover { color: #f5f5f5; }
+        .social-icon.linkedin:hover { color: #0077B5; }
+
+        .right-side-1span {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 20px;
+            position: relative;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .right-side-1span::before, .right-side-1span::after {
+            content: "";
+            position: absolute;
+            height: 1px;
+            width: 80px;
+            background: linear-gradient(to right, transparent, #444, transparent);
+            top: 50%;
+        }
+
+        .right-side-1span::before {
+            left: -90px;
+        }
+
+        .right-side-1span::after {
+            right: -90px;
+        }
+
+        .input-group {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .right-side-1input, 
+        .right-side-2input, 
+        .right-side-3input {
+            height: 50px;
+            width: 100%;
+            padding: 0 20px;
+            border: 1px solid rgba(68, 68, 68, 0.5);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            background: rgba(51, 51, 51, 0.7);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .right-side-1input:focus, 
+        .right-side-2input:focus, 
+        .right-side-3input:focus {
+            border-color: rgba(255, 153, 0, 0.7);
+            box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.2);
+            outline: none;
+            background: rgba(51, 51, 51, 0.9);
+        }
+
+        .right-side-1button {
+            height: 50px;
+            width: 180px;
+            color: white;
+            background: linear-gradient(to right, #131921, #232F3E);
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            animation: fadeIn 1.4s ease-out;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .right-side-1button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .right-side-1button:hover {
+            background: linear-gradient(to right, #232F3E, #37475A);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .right-side-1button:hover::before {
+            left: 100%;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                height: auto;
+                width: 95%;
+            }
+            
+            .left-side-main-div, 
+            .right-side-main-div {
+                width: 100%;
+                padding: 30px;
+            }
+            
+            .left-side-main-div {
+                border-radius: 15px 15px 0 0;
+            }
+            
+            .right-side-main-div {
+                border-radius: 0 0 15px 15px;
+            }
+
+            .right-side-1span::before, 
+            .right-side-1span::after {
+                width: 50px;
+            }
+
+            .right-side-1span::before {
+                left: -60px;
+            }
+
+            .right-side-1span::after {
+                right: -60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Aqua Particles Background -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="main-container">
+        <div class="left-side-main-div">
+            <div class="left-side-all-1div">
+                <h2 id="left-side-1heading">Welcome Back!</h2>
+            </div>
+            <div class="left-side-all-2div">
+                <span class="left-side-1span">Enter your personal details to use all of site features</span>
+            </div>
+            <div class="left-side-all-4div">
+                <button type="button" class="left-side-1button">SIGN IN</button>
+            </div>
+        </div>
+
+        <div class="right-side-main-div">
+            <div class="right-side-all-1div">
+                <h2 id="right-side-1heading">Create Account</h2>
+            </div>
+            <div class="right-side-all-2div">
+                <div class="social-icon google"><i class="fab fa-google"></i></div>
+                <div class="social-icon facebook"><i class="fab fa-facebook-f"></i></div>
+                <div class="social-icon github"><i class="fab fa-github"></i></div>
+                <!-- <div class="social-icon linkedin"><i class="fab fa-linkedin-in"></i></div> -->
+            </div>
+            <div class="right-side-all-3div">
+                <span class="right-side-1span">or use your email for registration</span>
+            </div>
+            <div class="input-group">
+                <input type="email" class="right-side-1input" placeholder="Enter Your Email">
+            </div>
+            <div class="input-group">
+                <input type="password" class="right-side-2input" placeholder="Enter Your Password">
+            </div>
+            <div class="input-group">
+                <input type="password" class="right-side-3input" placeholder="Confirm Your Password">
+            </div>
+            <div class="right-side-all-7div">
+                <button type="submit" class="right-side-1button">SIGN UP</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create aqua particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100 + 100; // Start below viewport
+                
+                // Random size
+                const size = Math.random() * 3 + 2;
+                
+                // Random animation duration
+                const duration = Math.random() * 10 + 10;
+                
+                // Random delay
+                const delay = Math.random() * -20;
+                
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles
+        createParticles();
+        
+        // Click handlers with event delegation
+        document.addEventListener('click', function(event) {
+            // Handle left-side sign-in button
+            if (event.target.classList.contains('left-side-1button')) {
+                event.preventDefault();
+                window.location.href = '2.html';
+            }
+            
+            // Handle right-side sign-up button
+            if (event.target.classList.contains('right-side-1button')) {
+                event.preventDefault();
+                window.location.href = 'Lnd.html';
+            }
+        });
+    </script>
+</body>
+</html>

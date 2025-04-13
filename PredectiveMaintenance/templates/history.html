@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prediction History | SmartPredict</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Add jsPDF library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    :root {
+      /* Dark mode (default) */
+      --background: #121212;
+      --surface: #1e1e1e;
+      --surface-hover: #2d2d2d;
+      --primary: #7a62f1;
+      --primary-hover: #7d6add;
+      --secondary: #4a4a4a;
+      --text: #e0e0e0;
+      --text-secondary: #a0a0a0;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --success: #10b981;
+      --border: rgba(255, 255, 255, 0.1);
+    }
+
+    .light-mode {
+      --background: #f5f5f7;
+      --surface: #ffffff;
+      --surface-hover: #f0f0f0;
+      --primary: #5046c8;
+      --primary-hover: #6155d9;
+      --secondary: #e0e0e0;
+      --text: #333333;
+      --text-secondary: #666666;
+      --danger: #dc2626;
+      --warning: #d97706;
+      --success: #059669;
+      --border: rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body {
+      background-color: var(--background);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Background animation */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+
+    .bg-animation .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--primary);
+      opacity: 0.3;
+      animation: float 15s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) translateX(0);
+      }
+      25% {
+        transform: translateY(-100px) translateX(50px);
+      }
+      50% {
+        transform: translateY(-50px) translateX(100px);
+      }
+      75% {
+        transform: translateY(-150px) translateX(25px);
+      }
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: var(--surface);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: width 0.3s;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background-color: var(--surface-hover);
+    }
+
+    /* Main content */
+    .history-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--surface);
+      border-radius: 0.5rem;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .history-header h2 {
+      font-size: 1.8rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .history-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background-color: var(--primary);
+      transition: width 0.3s;
+    }
+
+    .history-header:hover h2::after {
+      width: 100%;
+    }
+
+    .primary-btn {
+      padding: 0.6rem 1.2rem;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 0.3rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .primary-btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .primary-btn:active {
+      transform: translateY(0);
+    }
+
+    .history-filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      border: 1px solid var(--primary);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .filter-btn:hover {
+      background: rgba(109, 90, 205, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 2px 10px rgba(109, 90, 205, 0.3);
+    }
+
+    .history-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+
+    .history-table tr {
+      transition: background-color 0.2s;
+    }
+
+    .history-table tr:hover {
+      background-color: var(--surface-hover);
+    }
+
+    .history-table th {
+      text-align: left;
+      padding: 1rem;
+      border-bottom: 2px solid var(--primary);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .history-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .status-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .status-critical {
+      background-color: rgba(239, 68, 68, 0.2);
+      color: var(--danger);
+    }
+
+    .status-warning {
+      background-color: rgba(245, 158, 11, 0.2);
+      color: var(--warning);
+    }
+
+    .status-normal {
+      background-color: rgba(16, 185, 129, 0.2);
+      color: var(--success);
+    }
+
+    .secondary-btn {
+      background-color: var(--secondary);
+      color: var(--text);
+      border: none;
+      border-radius: 0.3rem;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .secondary-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .page-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .page-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .page-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 2px 10px rgba(109, 90, 205, 0.3);
+    }
+
+    /* Loading state */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(109, 90, 205, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s infinite linear;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Success notification */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      background-color: var(--success);
+      color: white;
+      border-radius: 5px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateX(200%);
+      transition: transform 0.3s ease-out;
+      z-index: 1000;
+    }
+
+    .notification.show {
+      transform: translateX(0);
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .history-container {
+        padding: 1rem;
+        margin: 1rem;
+      }
+
+      .history-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .history-table {
+        font-size: 0.9rem;
+      }
+
+      .history-table td, .history-table th {
+        padding: 0.75rem 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animation" id="bgAnimation"></div>
+  
+  <nav>
+    <div class="nav-brand">
+      <i class="fas fa-brain"></i>
+      SmartPredict
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Dashboard</a>
+      <a href="history.html" class="nav-link active">History</a>
+      <a href="Lnd.html" class="nav-link">Home</a>
+    </div>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+      </button>
+      <div class="user-menu">
+        <i class="fas fa-user-circle"></i>
+      </div>
+    </div>
+  </nav>
+
+  <section class="history">
+    <div class="history-container">
+      <div class="history-header">
+        <h2>Prediction History</h2>
+        <div class="history-actions">
+          <button class="primary-btn" id="exportBtn">
+            <i class="fas fa-download"></i> Export PDF
+          </button>
+        </div>
+      </div>
+      
+      <div class="history-filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="critical">
+          <i class="fas fa-exclamation-circle"></i> Critical
+        </button>
+        <button class="filter-btn" data-filter="warning">
+          <i class="fas fa-exclamation-triangle"></i> Warning
+        </button>
+        <button class="filter-btn" data-filter="normal">
+          <i class="fas fa-check-circle"></i> Normal
+        </button>
+      </div>
+      
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Equipment</th>
+            <th>Sensor Values</th>
+            <th>Prediction</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="historyTableBody">
+          <!-- Will be populated by JavaScript -->
+        </tbody>
+      </table>
+      
+      <div class="pagination">
+        <button class="page-btn" id="prevPage">
+          <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn" id="nextPage">
+          Next <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Success notification -->
+  <div class="notification" id="notification">
+    <i class="fas fa-check-circle"></i>
+    <span id="notificationMessage">PDF exported successfully!</span>
+  </div>
+
+  <script>
+    // jsPDF initialization
+    const { jsPDF } = window.jspdf;
+    
+    // Create background animation particles
+    const bgAnimation = document.getElementById('bgAnimation');
+    
+    function createParticles() {
+      bgAnimation.innerHTML = '';
+      const particleCount = 15;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size between 50px and 200px
+        const size = Math.random() * 150 + 50;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation delay
+        particle.style.animationDelay = `${Math.random() * 15}s`;
+        
+        bgAnimation.appendChild(particle);
+      }
+    }
+    
+    // Theme toggling
+    const themeToggle = document.getElementById('themeToggle');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Check for saved theme preference or use system preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-mode');
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else if (!savedTheme && !prefersDarkScheme.matches) {
+      document.body.classList.add('light-mode');
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      if (document.body.classList.contains('light-mode')) {
+        document.body.classList.remove('light-mode');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.body.classList.add('light-mode');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        localStorage.setItem('theme', 'light');
+      }
+      createParticles(); // Recreate particles when theme changes
+    });
+    
+    // Mock data for demonstration
+    const mockData = [
+      {
+        id: 'pred001',
+        timestamp: new Date(2025, 3, 12, 14, 35),
+        equipment: 'Pump Station A',
+        sensors: {
+          'Temperature': '85.2°C',
+          'Pressure': '23.4 psi',
+          'Vibration': '2.3 mm/s'
+        },
+        prediction: 'Bearing failure within 48 hours',
+        status: 'critical'
+      },
+      {
+        id: 'pred002',
+        timestamp: new Date(2025, 3, 12, 10, 15),
+        equipment: 'Cooling Tower 2',
+        sensors: {
+          'Temperature': '32.7°C',
+          'Flow Rate': '120 L/min',
+          'Conductivity': '450 μS/cm'
+        },
+        prediction: 'Reduced efficiency (15%)',
+        status: 'warning'
+      },
+      {
+        id: 'pred003',
+        timestamp: new Date(2025, 3, 11, 22, 45),
+        equipment: 'Conveyor Belt B',
+        sensors: {
+          'Motor Temp': '65.1°C',
+          'Speed': '1.2 m/s',
+          'Load': '78%'
+        },
+        prediction: 'Normal operation',
+        status: 'normal'
+      },
+      {
+        id: 'pred004',
+        timestamp: new Date(2025, 3, 11, 15, 20),
+        equipment: 'Compressor Unit 3',
+        sensors: {
+          'Pressure': '145 psi',
+          'Temperature': '92.4°C',
+          'Power': '13.8 kW'
+        },
+        prediction: 'Maintenance recommended within 7 days',
+        status: 'warning'
+      },
+      {
+        id: 'pred005',
+        timestamp: new Date(2025, 3, 10, 9, 10),
+        equipment: 'HVAC System 1',
+        sensors: {
+          'Air Flow': '35 m³/min',
+          'Temperature': '24.2°C',
+          'Humidity': '45%'
+        },
+        prediction: 'Normal operation',
+        status: 'normal'
+      }
+    ];
+    
+    // Current filter
+    let currentFilter = 'all';
+    
+    // Load history data
+    function loadHistory(filter = 'all') {
+      currentFilter = filter;
+      const tbody = document.getElementById('historyTableBody');
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6">
+            <div class="loading">
+              <div class="loading-spinner"></div>
+            </div>
+          </td>
+        </tr>
+      `;
+      
+      // Simulate loading
+      setTimeout(() => {
+        // Filter data based on selected filter
+        const filteredData = filter === 'all' 
+          ? mockData 
+          : mockData.filter(item => item.status === filter);
+        
+        if (filteredData.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No predictions found</td></tr>';
+          return;
+        }
+        
+        tbody.innerHTML = '';
+        
+        filteredData.forEach((data) => {
+          const row = document.createElement('tr');
+          
+          // Format timestamp
+          const formattedDate = data.timestamp.toLocaleString();
+          
+          // Format sensor values
+          const sensorValues = Object.entries(data.sensors)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join('<br>');
+          
+          // Determine status class and icon
+          let statusClass = '';
+          let statusIcon = '';
+          
+          if (data.status === 'critical') {
+            statusClass = 'status-critical';
+            statusIcon = '<i class="fas fa-exclamation-circle"></i>';
+          } else if (data.status === 'warning') {
+            statusClass = 'status-warning';
+            statusIcon = '<i class="fas fa-exclamation-triangle"></i>';
+          } else {
+            statusClass = 'status-normal';
+            statusIcon = '<i class="fas fa-check-circle"></i>';
+          }
+          
+          row.innerHTML = `
+            <td>${formattedDate}</td>
+            <td>${data.equipment}</td>
+            <td>${sensorValues}</td>
+            <td>${data.prediction}</td>
+            <td><span class="status-badge ${statusClass}">${statusIcon} ${data.status.charAt(0).toUpperCase() + data.status.slice(1)}</span></td>
+            <td><button class="secondary-btn" data-id="${data.id}">Details</button></td>
+          `;
+          
+          tbody.appendChild(row);
+          
+          // Add animation to the row
+          setTimeout(() => {
+            row.style.opacity = '0';
+            row.style.transform = 'translateX(-10px)';
+            row.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+            
+            setTimeout(() => {
+              row.style.opacity = '1';
+              row.style.transform = 'translateX(0)';
+            }, 10);
+          }, 0);
+        });
+        
+      }, 800); // Simulate network delay
+    }
+    
+    // Generate PDF from data
+    function generatePDF() {
+      // Filter data based on current filter
+      const filteredData = currentFilter === 'all' 
+        ? mockData 
+        : mockData.filter(item => item.status === currentFilter);
+      
+      // Create PDF document
+      const doc = new jsPDF();
+      
+      // Set title
+      doc.setFontSize(20);
+      doc.setTextColor(109, 90, 205); // Primary color
+      doc.text('SmartPredict - Prediction History', 105, 15, { align: 'center' });
+      
+      // Add generation info
+      doc.setFontSize(10);
+      doc.setTextColor(100);
+      const now = new Date();
+      doc.text(`Generated on ${now.toLocaleDateString()} at ${now.toLocaleTimeString()}`, 105, 22, { align: 'center' });
+      
+      // Add filter info
+      doc.setFontSize(12);
+      doc.setTextColor(50);
+      doc.text(`Filter: ${currentFilter.charAt(0).toUpperCase() + currentFilter.slice(1)}`, 14, 30);
+      
+      // Create table headers and rows
+      const headers = [['Timestamp', 'Equipment', 'Sensor Values', 'Prediction', 'Status']];
+      const rows = filteredData.map(item => {
+        // Format sensor values for PDF
+        const sensors = Object.entries(item.sensors)
+          .map(([key, value]) => `${key}: ${value}`)
+          .join('\n');
+        
+        return [
+          item.timestamp.toLocaleString(),
+          item.equipment,
+          sensors,
+          item.prediction,
+          item.status.charAt(0).toUpperCase() + item.status.slice(1)
+        ];
+      });
+      
+      // Set custom styling for table
+      doc.autoTable({
+        startY: 35,
+        head: headers,
+        body: rows,
+        theme: 'grid',
+        headStyles: { 
+          fillColor: [109, 90, 205], 
+          textColor: 255,
+          fontStyle: 'bold'
+        },
+        alternateRowStyles: { fillColor: [245, 245, 245] },
+        rowStyles: { textColor: [50, 50, 50] },
+        columnStyles: {
+          0: { cellWidth: 'auto' },
+          1: { cellWidth: 'auto' },
+          2: { cellWidth: 'auto' },
+          3: { cellWidth: 'auto' },
+          4: { cellWidth: 'auto' }
+        },
+        styles: { 
+          overflow: 'linebreak',
+          cellPadding: 4 
+        },
+        // Apply custom styling based on status
+        didDrawCell: (data) => {
+          if (data.section === 'body' && data.column.index === 4) {
+            const status = rows[data.row.index][4].toLowerCase();
+            if (status === 'critical') {
+              doc.setTextColor(239, 68, 68);
+            } else if (status === 'warning') {
+              doc.setTextColor(245, 158, 11);
+            } else {
+              doc.setTextColor(16, 185, 129);
+            }
+          }
+        }
+      });
+      
+      // Add footer
+      const pageCount = doc.internal.getNumberOfPages();
+      for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.setTextColor(150);
+        doc.text(`Page ${i} of ${pageCount} - SmartPredict © 2025`, 105, doc.internal.pageSize.height - 10, { align: 'center' });
+      }
+      
+      // Save the PDF
+      doc.save('SmartPredict-History.pdf');
+    }
+
+    // Show notification function
+    function showNotification(message) {
+      const notification = document.getElementById('notification');
+      const notificationMessage = document.getElementById('notificationMessage');
+      
+      notificationMessage.textContent = message;
+      notification.classList.add('show');
+      
+      // Hide notification after 3 seconds
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+    
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+      // Create background animation
+      createParticles();
+      
+      // Load initial data
+      loadHistory();
+      
+      // Set up filter buttons
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          loadHistory(btn.dataset.filter);
+        });
+      });
+      
+      // Export button
+      document.getElementById('exportBtn').addEventListener('click', () => {
+        const btn = document.getElementById('exportBtn');
+        const originalText = btn.innerHTML;
+        
+        // Show loading state
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Exporting...';
+        btn.disabled = true;
+        
+        // Simulate export process
+        setTimeout(() => {
+          // Generate and download PDF
+          generatePDF();
+          
+          // Show success state
+          btn.innerHTML = '<i class="fas fa-check"></i> Exported!';
+          showNotification('PDF exported successfully!');
+          
+          // Restore original button state
+          setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+          }, 2000);
+        }, 1500);
+      });
+      
+      // Detail buttons
+      document.addEventListener('click', (e) => {
+        if (e.target.matches('.secondary-btn')) {
+          const id = e.target.dataset.id;
+          alert(`Details for prediction ${id} will be shown here`);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

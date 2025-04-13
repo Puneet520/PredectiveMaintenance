@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-In</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Modern Gradient Theme with Particles */
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #121212, #1a1a2e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Aqua Particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: rgba(0, 255, 255, 0.5);
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(0, 255, 255, 0.5);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        .main-container {
+            height: 550px;
+            width: 900px;
+            background: rgba(30, 30, 30, 0.85);
+            border-radius: 15px;
+            display: flex;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* LEFT SIDE - SIGN IN */
+        .left-side-main-div {
+            height: 100%;
+            width: 55%;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(42, 42, 42, 0.7);
+            transition: all 0.5s ease;
+        }
+
+        .left-side-main-div:hover {
+            background: rgba(42, 42, 42, 0.8);
+        }
+
+        #left-side-1heading {
+            color: #ffffff;
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .social-icon {
+            height: 45px;
+            width: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(58, 58, 58, 0.7);
+            color: #aaa;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-icon:hover {
+            background-color: rgba(74, 74, 74, 0.9);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-icon.google:hover { color: #DB4437; }
+        .social-icon.facebook:hover { color: #4267B2; }
+        .social-icon.github:hover { color: #f5f5f5; }
+
+        .divider {
+            font-size: 0.85rem;
+            color: #777;
+            margin: 20px 0;
+            position: relative;
+            width: 100%;
+            text-align: center;
+        }
+
+        .divider::before, .divider::after {
+            content: "";
+            position: absolute;
+            height: 1px;
+            width: 30%;
+            background: linear-gradient(to right, transparent, #444, transparent);
+            top: 50%;
+        }
+
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
+
+        .input-group {
+            width: 100%;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .left-side-1input, 
+        .left-side-2input {
+            height: 50px;
+            width: 100%;
+            padding: 0 20px;
+            border: 1px solid rgba(68, 68, 68, 0.5);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: rgba(51, 51, 51, 0.7);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .left-side-1input:focus, 
+        .left-side-2input:focus {
+            border-color: rgba(0, 255, 255, 0.5);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
+            background: rgba(51, 51, 51, 0.9);
+        }
+
+        .forgot-password a {
+            font-size: 0.85rem;
+            text-decoration: none;
+            color: #888;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .forgot-password a:hover {
+            color: #0ff;
+            transform: translateX(3px);
+        }
+
+        .sign-in-btn {
+            height: 50px;
+            width: 170px;
+            color: white;
+            background: linear-gradient(45deg, #333, #0aa);
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 20px;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sign-in-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .sign-in-btn:hover {
+            background: linear-gradient(45deg, #0aa, #333);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 170, 170, 0.3);
+        }
+
+        .sign-in-btn:hover::before {
+            left: 100%;
+        }
+
+        /* RIGHT SIDE - SIGN UP */
+        .right-side-main-div {
+            height: 100%;
+            width: 45%;
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.7), rgba(40, 40, 60, 0.7));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .right-side-main-div:hover {
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.8), rgba(40, 40, 60, 0.8));
+        }
+
+        #right-side-1heading {
+            color: #fff;
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .right-side-1span,
+        .right-side-2span {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin: 5px 0;
+        }
+
+        .sign-up-1btn {
+            height: 45px;
+            width: 140px;
+            border-radius: 8px;
+            background: transparent;
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            color: #fff;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 30px;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sign-up-1btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .sign-up-1btn:hover {
+            background: rgba(0, 255, 255, 0.1);
+            border-color: rgba(0, 255, 255, 0.8);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+        }
+
+        .sign-up-1btn:hover::before {
+            left: 100%;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                height: auto;
+                width: 95%;
+            }
+            
+            .left-side-main-div, 
+            .right-side-main-div {
+                width: 100%;
+                padding: 30px;
+            }
+            
+            .left-side-main-div {
+                order: 2;
+            }
+            
+            .right-side-main-div {
+                order: 1;
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Aqua Particles Background -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="main-container">
+        <!-- LEFT SIDE - SIGN IN FORM -->
+        <div class="left-side-main-div">
+            <div class="left-side-all-1div">
+                <h2 id="left-side-1heading">Sign In</h2>
+            </div>
+            <div class="social-icons">
+                <div class="social-icon google"><i class="fab fa-google"></i></div>
+                <div class="social-icon facebook"><i class="fab fa-facebook-f"></i></div>
+                <div class="social-icon github"><i class="fab fa-github"></i></div>
+            </div>
+            <div class="divider">or use your email</div>
+            <div class="input-group">
+                <input type="email" class="left-side-1input" placeholder="Enter Your Email">
+            </div>
+            <div class="input-group">
+                <input type="password" class="left-side-2input" placeholder="Enter Your Password">
+            </div>
+            <div class="forgot-password">
+                <a href="1.html">Forgot Your Password?</a>
+            </div>
+            <button type="button" class="sign-in-btn">SIGN IN</button>
+        </div>
+
+        <!-- RIGHT SIDE - SIGN UP -->
+        <div class="right-side-main-div">
+            <div class="right-side-all-1div">
+                <h2 id="right-side-1heading">New Here?</h2>
+            </div>
+            <div class="right-side-all-2div">
+                <span class="right-side-1span">Create an account to access all</span>
+            </div>
+            <div class="right-side-all-3div">
+                <span class="right-side-2span">features and services</span>
+            </div>
+            <button type="button" class="sign-up-1btn">SIGN UP</button>
+        </div>
+    </div>
+
+    <script>
+        // Create aqua particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100 + 100; // Start below viewport
+                
+                // Random size
+                const size = Math.random() * 3 + 2;
+                
+                // Random animation duration
+                const duration = Math.random() * 10 + 10;
+                
+                // Random delay
+                const delay = Math.random() * -20;
+                
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles
+        createParticles();
+        
+        // Simple and reliable click handlers
+        document.querySelector('.sign-in-btn').addEventListener('click', function() {
+            window.location.href = 'Lnd.html';
+        });
+        
+        document.querySelector('.sign-up-1btn').addEventListener('click', function() {
+            window.location.href = '1.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+[
+    {
+        "timestamp": "2025-04-12 08:17:33",
+        "temperature": 52.66,
+        "humidity": 74.0,
+        "vibration": 0.479
+    },
+    {
+        "timestamp": "2025-04-12 08:17:34",
+        "temperature": 31.7,
+        "humidity": 65.3,
+        "vibration": 0.015
+    },
+    {
+        "timestamp": "2025-04-12 08:17:36",
+        "temperature": 83.22,
+        "humidity": 30.18,
+        "vibration": 0.049
+    },
+    {
+        "timestamp": "2025-04-12 08:17:37",
+        "temperature": 57.39,
+        "humidity": 56.78,
+        "vibration": 0.376
+    },
+    {
+        "timestamp": "2025-04-12 08:17:38",
+        "temperature": 78.92,
+        "humidity": 61.69,
+        "vibration": 0.497
+    },
+    {
+        "timestamp": "2025-04-12 08:17:39",
+        "temperature": 37.62,
+        "humidity": 62.9,
+        "vibration": 0.459
+    },
+    {
+        "timestamp": "2025-04-12 08:17:40",
+        "temperature": 85.36,
+        "humidity": 60.06,
+        "vibration": 0.281
+    },
+    {
+        "timestamp": "2025-04-12 08:17:41",
+        "temperature": 32.51,
+        "humidity": 67.03,
+        "vibration": 0.142
+    },
+    {
+        "timestamp": "2025-04-12 08:17:42",
+        "temperature": 48.81,
+        "humidity": 44.0,
+        "vibration": 0.342
+    },
+    {
+        "timestamp": "2025-04-12 08:17:43",
+        "temperature": 73.59,
+        "humidity": 71.73,
+        "vibration": 0.483
+    },
+    {
+        "timestamp": "2025-04-12 08:17:44",
+        "temperature": 48.83,
+        "humidity": 31.22,
+        "vibration": 0.216
+    },
+    {
+        "timestamp": "2025-04-12 08:17:45",
+        "temperature": 89.12,
+        "humidity": 58.8,
+        "vibration": 0.168
+    },
+    {
+        "timestamp": "2025-04-12 08:17:46",
+        "temperature": 85.63,
+        "humidity": 38.79,
+        "vibration": 0.143
+    },
+    {
+        "timestamp": "2025-04-12 08:17:47",
+        "temperature": 83.31,
+        "humidity": 46.58,
+        "vibration": 0.172
+    },
+    {
+        "timestamp": "2025-04-12 08:17:48",
+        "temperature": 84.94,
+        "humidity": 71.34,
+        "vibration": 0.37
+    },
+    {
+        "timestamp": "2025-04-12 08:17:49",
+        "temperature": 48.46,
+        "humidity": 53.17,
+        "vibration": 0.344
+    },
+    {
+        "timestamp": "2025-04-12 08:17:50",
+        "temperature": 37.36,
+        "humidity": 56.4,
+        "vibration": 0.378
+    },
+    {
+        "timestamp": "2025-04-12 08:17:51",
+        "temperature": 49.78,
+        "humidity": 33.82,
+        "vibration": 0.022
+    },
+    {
+        "timestamp": "2025-04-12 08:17:52",
+        "temperature": 38.38,
+        "humidity": 66.15,
+        "vibration": 0.452
+    },
+    {
+        "timestamp": "2025-04-12 08:17:53",
+        "temperature": 60.1,
+        "humidity": 47.32,
+        "vibration": 0.329
+    },
+    {
+        "timestamp": "2025-04-12 08:17:54",
+        "temperature": 30.37,
+        "humidity": 24.13,
+        "vibration": 0.419
+    },
+    {
+        "timestamp": "2025-04-12 08:17:55",
+        "temperature": 58.98,
+        "humidity": 65.99,
+        "vibration": 0.201
+    },
+    {
+        "timestamp": "2025-04-12 08:17:56",
+        "temperature": 36.39,
+        "humidity": 54.0,
+        "vibration": 0.134
+    },
+    {
+        "timestamp": "2025-04-12 08:17:57",
+        "temperature": 74.8,
+        "humidity": 61.72,
+        "vibration": 0.371
+    },
+    {
+        "timestamp": "2025-04-12 08:17:58",
+        "temperature": 50.7,
+        "humidity": 75.94,
+        "vibration": 0.436
+    },
+    {
+        "timestamp": "2025-04-12 08:17:59",
+        "temperature": 85.65,
+        "humidity": 44.75,
+        "vibration": 0.14
+    },
+    {
+        "timestamp": "2025-04-12 08:18:00",
+        "temperature": 65.04,
+        "humidity": 44.29,
+        "vibration": 0.091
+    },
+    {
+        "timestamp": "2025-04-12 08:18:01",
+        "temperature": 74.89,
+        "humidity": 53.99,
+        "vibration": 0.4
+    },
+    {
+        "timestamp": "2025-04-12 08:18:02",
+        "temperature": 53.3,
+        "humidity": 60.56,
+        "vibration": 0.295
+    },
+    {
+        "timestamp": "2025-04-12 08:18:03",
+        "temperature": 53.29,
+        "humidity": 66.29,
+        "vibration": 0.254
+    },
+    {
+        "timestamp": "2025-04-12 08:18:04",
+        "temperature": 57.03,
+        "humidity": 39.79,
+        "vibration": 0.287
+    },
+    {
+        "timestamp": "2025-04-12 08:18:05",
+        "temperature": 34.85,
+        "humidity": 41.53,
+        "vibration": 0.241
+    },
+    {
+        "timestamp": "2025-04-12 08:18:06",
+        "temperature": 42.3,
+        "humidity": 54.18,
+        "vibration": 0.045
+    },
+    {
+        "timestamp": "2025-04-12 08:18:07",
+        "temperature": 59.81,
+        "humidity": 37.31,
+        "vibration": 0.366
+    },
+    {
+        "timestamp": "2025-04-12 08:18:08",
+        "temperature": 76.47,
+        "humidity": 58.81,
+        "vibration": 0.463
+    },
+    {
+        "timestamp": "2025-04-12 08:18:09",
+        "temperature": 65.87,
+        "humidity": 47.72,
+        "vibration": 0.267
+    },
+    {
+        "timestamp": "2025-04-12 08:18:10",
+        "temperature": 60.09,
+        "humidity": 47.68,
+        "vibration": 0.236
+    },
+    {
+        "timestamp": "2025-04-12 08:18:11",
+        "temperature": 83.7,
+        "humidity": 26.58,
+        "vibration": 0.332
+    },
+    {
+        "timestamp": "2025-04-12 08:18:12",
+        "temperature": 38.14,
+        "humidity": 52.9,
+        "vibration": 0.462
+    },
+    {
+        "timestamp": "2025-04-12 08:18:13",
+        "temperature": 65.8,
+        "humidity": 30.16,
+        "vibration": 0.317
+    },
+    {
+        "timestamp": "2025-04-12 08:18:14",
+        "temperature": 61.68,
+        "humidity": 29.15,
+        "vibration": 0.453
+    },
+    {
+        "timestamp": "2025-04-12 08:18:15",
+        "temperature": 47.46,
+        "humidity": 55.56,
+        "vibration": 0.125
+    },
+    {
+        "timestamp": "2025-04-12 08:18:16",
+        "temperature": 66.6,
+        "humidity": 20.19,
+        "vibration": 0.202
+    },
+    {
+        "timestamp": "2025-04-12 08:18:17",
+        "temperature": 70.0,
+        "humidity": 40.39,
+        "vibration": 0.161
+    },
+    {
+        "timestamp": "2025-04-12 08:18:18",
+        "temperature": 59.28,
+        "humidity": 70.24,
+        "vibration": 0.213
+    },
+    {
+        "timestamp": "2025-04-12 08:18:19",
+        "temperature": 31.88,
+        "humidity": 72.33,
+        "vibration": 0.495
+    },
+    {
+        "timestamp": "2025-04-12 08:18:20",
+        "temperature": 61.41,
+        "humidity": 45.06,
+        "vibration": 0.144
+    },
+    {
+        "timestamp": "2025-04-12 08:18:21",
+        "temperature": 54.86,
+        "humidity": 70.48,
+        "vibration": 0.435
+    },
+    {
+        "timestamp": "2025-04-12 08:18:22",
+        "temperature": 56.77,
+        "humidity": 51.02,
+        "vibration": 0.148
+    },
+    {
+        "timestamp": "2025-04-12 08:18:23",
+        "temperature": 41.73,
+        "humidity": 55.61,
+        "vibration": 0.359
+    }
+]

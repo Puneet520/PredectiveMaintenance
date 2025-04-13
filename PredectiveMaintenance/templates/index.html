@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Predictive Maintenance Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-6">
+
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-4xl font-bold">📊 Virtual Sensor Dashboard</h1>
+    <a href="/download/log.csv" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+      📥 Download Anomaly Logs
+    </a>
+  </div>
+
+  <div class="mb-8">
+    <canvas id="sensorChart" height="100"></canvas>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4 mb-6">
+    <div>
+      <h2 class="text-xl font-semibold mb-2">🔔 Traditional Alerts</h2>
+      <div id="traditionalAlerts" class="flex flex-wrap gap-2"></div>
+    </div>
+    <div>
+      <h2 class="text-xl font-semibold mb-2">🤖 ML Anomaly Detection</h2>
+      <div id="mlAlerts" class="flex flex-wrap gap-2"></div>
+    </div>
+  </div>
+
+  <div class="mb-6">
+    <h2 class="text-xl font-semibold mb-2">📈 Trend Analysis (Last 10 Readings)</h2>
+    <div class="grid grid-cols-4 gap-4">
+      <div class="bg-gray-800 p-4 rounded-lg">
+        <h3 class="text-lg font-medium mb-2">Temperature (°C)</h3>
+        <div id="tempTrend" class="text-sm">
+          <p>Average: <span class="text-blue-400">-</span></p>
+          <p>Min: <span class="text-green-400">-</span></p>
+          <p>Max: <span class="text-red-400">-</span></p>
+        </div>
+      </div>
+      <div class="bg-gray-800 p-4 rounded-lg">
+        <h3 class="text-lg font-medium mb-2">Pressure (bar)</h3>
+        <div id="pressureTrend" class="text-sm">
+          <p>Average: <span class="text-blue-400">-</span></p>
+          <p>Min: <span class="text-green-400">-</span></p>
+          <p>Max: <span class="text-red-400">-</span></p>
+        </div>
+      </div>
+      <div class="bg-gray-800 p-4 rounded-lg">
+        <h3 class="text-lg font-medium mb-2">Vibration (mm/s)</h3>
+        <div id="vibrationTrend" class="text-sm">
+          <p>Average: <span class="text-blue-400">-</span></p>
+          <p>Min: <span class="text-green-400">-</span></p>
+          <p>Max: <span class="text-red-400">-</span></p>
+        </div>
+      </div>
+      <div class="bg-gray-800 p-4 rounded-lg">
+        <h3 class="text-lg font-medium mb-2">Current (A)</h3>
+        <div id="currentTrend" class="text-sm">
+          <p>Average: <span class="text-blue-400">-</span></p>
+          <p>Min: <span class="text-green-400">-</span></p>
+          <p>Max: <span class="text-red-400">-</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-8">
+    <h2 class="text-2xl font-semibold mb-3">📑 Current Sensor Readings</h2>
+    <table class="table-auto w-full bg-gray-800 rounded-lg overflow-hidden border border-gray-700">
+      <thead>
+        <tr class="bg-gray-700">
+          <th class="px-4 py-3">Timestamp</th>
+          <th class="px-4 py-3">Temperature (°C)</th>
+          <th class="px-4 py-3">Pressure (bar)</th>
+          <th class="px-4 py-3">Vibration (mm/s)</th>
+          <th class="px-4 py-3">Current (A)</th>
+          <th class="px-4 py-3">Traditional Alerts</th>
+          <th class="px-4 py-3">ML Anomaly</th>
+        </tr>
+      </thead>
+      <tbody id="sensorTable" class="text-center text-gray-300"></tbody>
+    </table>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
